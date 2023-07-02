@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'filterable-listbox';
+
+
+  readonly items = Array.from({length: 100000}, (_, i) => `item #${i}`);
+
+
+  onValueUpdate(val:any){
+    console.log(val);
+  }
+
 }
