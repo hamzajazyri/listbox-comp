@@ -9,7 +9,7 @@
       <button class="select-all-button" (click)="deselectAll()" >Deselect All</button>
     </ng-template>
   </div>
-  <cdk-virtual-scroll-viewport itemSize="50" class="sc-list" (scrolledIndexChange)="onScrolledIndexChange()">
+  <cdk-virtual-scroll-viewport itemSize="40" class="sc-list" (scrolledIndexChange)="onScrolledIndexChange()">
     <div cdkListbox cdkListboxMultiple [formControl]="listBoxControl" (cdkListboxValueChange)="onOptionChange($event)">
       <div class="sc-option"
         *cdkVirtualFor="let item of filtredItems; templateCacheSize:0"
