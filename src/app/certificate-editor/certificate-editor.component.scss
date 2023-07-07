@@ -1,0 +1,44 @@
+.editor-container {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: 100vh;
+
+  .editor-tools {
+    background: #eee;
+    max-height: 100%;
+    .tab-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 40px;
+      justify-items: center;
+      align-items: center;
+      border-bottom: 1px solid #333;
+      font-size: 17px;
+      letter-spacing: 0.2px;
+      .active {
+        font-weight: 500;
+      }
+    }
+
+    .tab-body {
+      padding:10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+  }
+
+  .editor-preview{
+    background:#ccc;
+    padding:20px;
+    height: 100%;
+    overflow-y: auto;
+
+    .html-preview {
+      height: 1056px;
+      width: 100%;
+      padding:10px;
+      background:#fff;
+    }
+  }
+}

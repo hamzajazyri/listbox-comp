@@ -1,6 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@angular/cdk/overlay-prebuilt.css";
 
+.editor-container {
+  * {
+    box-sizing: border-box;
+  }
+  .resizable {
+    overflow: hidden;
+    max-width: 100%;
+    pointer-events: none;
+    &:hover {
+      resize: both;
+      border:1px solid #ccc;
+    }
+  }
+}
+
+.container-placeholder {
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}
+
 :root {
   --blue: #1e9ff2;
   --indigo: #6610f2;
@@ -146,9 +167,17 @@
   background-color: hsl(0deg 0% 0% / 30%);
   transition: opacity 0.1s cubic-bezier(0.02, 0.29, 0.58, 1);
 }
+
 .cdk-dialog-container {
   outline: none;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

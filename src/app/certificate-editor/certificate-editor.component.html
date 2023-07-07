@@ -1,0 +1,24 @@
+<div class="editor-container">
+  <div class="editor-tools">
+    <div class="tab">
+      <div class="tab-header">
+        <div class="active">Content</div>
+        <div>Layout</div>
+      </div>
+      <div class="tab-body">
+        <div *ngFor="let tool of tools">
+          <app-editor-tool-card
+            [iconUrl]="tool.iconUrl"
+            [text]="tool.text"
+            Draggable [component]="tool.html">
+          </app-editor-tool-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="editor-preview">
+    <div class="html-preview" #htmlPreviewRef>
+      <ng-container #containerRef></ng-container>
+    </div>
+  </div>
+</div>
