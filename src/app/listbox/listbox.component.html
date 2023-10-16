@@ -1,4 +1,9 @@
-<div class="j-listbox" appClickOutside (clickOutside)="clickOutsideHandler($event)">
+<div class="j-listbox" appClickOutside (clickOutside)="clickOutsideHandler($event)"
+  [matTooltip]="tooltip"
+  [matTooltipPosition]="tooltipPosition"
+  matTooltipClass="tooltip-class"
+  [matTooltipDisabled]="tooltip.length===0"
+  >
   <div class="listbox-header">
     <div class="input-container" *ngIf="multiple">
       <div class="tags" *ngIf="selectedItems.selected.length">

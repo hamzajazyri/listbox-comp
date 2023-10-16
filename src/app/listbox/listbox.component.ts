@@ -23,6 +23,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ClickOutsideDirective } from './click-outside.directive';
+import { MatTooltipModule, TooltipPosition} from '@angular/material/tooltip';
 
 @Component({
   selector: 'listbox',
@@ -32,7 +33,8 @@ import { ClickOutsideDirective } from './click-outside.directive';
     ScrollingModule,
     CdkListboxModule,
     ReactiveFormsModule,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    MatTooltipModule
   ],
   templateUrl: './listbox.component.html',
   styleUrls: ['./listbox.component.scss'],
@@ -41,6 +43,8 @@ export class ListboxComponent implements OnInit, AfterViewInit {
   @Input() items: Array<any> = [];
   @Input() multiple: boolean = false;
   @Input() maxTagCount: number = 3;
+  @Input() tooltip: string = '';
+  @Input() tooltipPosition: TooltipPosition = 'above';
 
   @Output() onValuesChange = new EventEmitter<Array<string>>();
 

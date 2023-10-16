@@ -152,3 +152,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.tooltip-class {
+  >div {
+    background:#eee;
+    color:black;
+    font-size: 15px;
+    padding:7px;
+  }
+
+}

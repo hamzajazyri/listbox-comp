@@ -2,6 +2,8 @@
   <listbox  [items]="items"
             [multiple]="false"
             [maxTagCount]="3"
+            tooltip="tooltip info message"
+            tooltipPosition="above"
             (onValuesChange)="onValueUpdate($event)"
   ></listbox>
 </div>
