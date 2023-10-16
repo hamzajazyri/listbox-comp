@@ -1,11 +1,28 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
-import { CdkListbox, CdkListboxModule, CdkOption, ListboxValueChangeEvent } from '@angular/cdk/listbox';
+import {
+  CdkVirtualScrollViewport,
+  ScrollingModule,
+} from '@angular/cdk/scrolling';
+import {
+  CdkListbox,
+  CdkListboxModule,
+  CdkOption,
+  ListboxValueChangeEvent,
+} from '@angular/cdk/listbox';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { SelectionModel } from '@angular/cdk/collections';
-
+import { ClickOutsideDirective } from './click-outside.directive';
 
 @Component({
   selector: 'listbox',
@@ -14,14 +31,17 @@ import { SelectionModel } from '@angular/cdk/collections';
     CommonModule,
     ScrollingModule,
     CdkListboxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ClickOutsideDirective
   ],
   templateUrl: './listbox.component.html',
-  styleUrls: ['./listbox.component.scss']
+  styleUrls: ['./listbox.component.scss'],
 })
-export class ListboxComponent implements OnInit {
-
+export class ListboxComponent implements OnInit, AfterViewInit {
   @Input() items: Array<any> = [];
+  @Input() multiple: boolean = false;
+  @Input() maxTagCount: number = 3;
+
   @Output() onValuesChange = new EventEmitter<Array<string>>();
 
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
@@ -29,20 +49,30 @@ export class ListboxComponent implements OnInit {
 
   @ViewChildren(CdkOption) cdkOptions!: CdkOption[];
 
-
+  // only works when ListBox is single type [multiple=false]
+  isDropdownOpened = true;
   allFiltredItemsAreSelected = false;
 
   filtredItems: Array<any> = [];
   selectedItems = new SelectionModel<string>(true, []);
 
-
   listBoxControl = new FormControl<string[]>([]);
   filtredControl = new FormControl('');
 
   onOptionChange(option: ListboxValueChangeEvent<any>) {
+    if (!this.multiple) {
+      this.selectedItems.clear();
+    }
     this.selectedItems.toggle(option.option!.value);
     this.onValuesChange.emit(this.selectedItems.selected);
     this.checkAllSelected();
+  }
+
+  onOptionRemove(option: string) {
+    this.selectedItems.deselect(option);
+    this.onValuesChange.emit(this.selectedItems.selected);
+    this.checkAllSelected();
+
   }
 
   checkAllSelected() {
@@ -51,24 +81,30 @@ export class ListboxComponent implements OnInit {
       this.allFiltredItemsAreSelected = false;
       return;
     }
-    this.allFiltredItemsAreSelected = !this.filtredItems.some(x => !this.selectedItems.isSelected(x));
+    this.allFiltredItemsAreSelected = !this.filtredItems.some(
+      (x) => !this.selectedItems.isSelected(x)
+    );
   }
 
   ngOnInit(): void {
     this.onValuesChange.emit([]);
     this.filtredItems = this.items;
 
-    this.filtredControl.valueChanges.pipe(
-      distinctUntilChanged(),
-      debounceTime(100),
-    ).subscribe(val => {
-      this.filtredItems = this.items.filter(x => x.includes(val));
-      this.viewport.scrollToIndex(0);
-      this.updateSelectedViewItem();
-      this.checkAllSelected();
-    });
+    this.filtredControl.valueChanges
+      .pipe(distinctUntilChanged(), debounceTime(100))
+      .subscribe((val) => {
+        this.filtredItems = this.items.filter((x) => x.includes(val));
+        this.viewport.scrollToIndex(0);
+        this.updateSelectedViewItem();
+        this.checkAllSelected();
+      });
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.isDropdownOpened = false;
+    });
+  }
 
   matchFilter(item: string) {
     return item.includes(this.filtredControl.value as string);
@@ -88,21 +124,21 @@ export class ListboxComponent implements OnInit {
     this.allFiltredItemsAreSelected = false;
   }
 
-
   onScrolledIndexChange() {
     this.updateSelectedViewItem();
   }
 
-  updateSelectedViewItem(){
-    this.listBoxControl.setValue([]);
-    setTimeout(() => {
-      const selectedItemInView: string[] = [];
-      for (const option of this.cdkOptions) {
-        if (this.selectedItems.isSelected(option.value as string)){
-          selectedItemInView.push(option.value as string);
-        }
+  updateSelectedViewItem() {
+    const selectedItemInView: string[] = [];
+    for (const option of this.cdkOptions) {
+      if (this.selectedItems.isSelected(option.value as string)) {
+        selectedItemInView.push(option.value as string);
       }
-      this.listBoxControl.setValue(selectedItemInView);
-    },0);
+    }
+    this.listBoxControl.setValue(selectedItemInView);
+  }
+
+  clickOutsideHandler(event: Event) {
+    this.isDropdownOpened = false;
   }
 }

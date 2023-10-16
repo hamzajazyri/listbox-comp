@@ -8,16 +8,64 @@
   display: flex;
 }
 
+.input-container {
+  width: 100%;
+  display: flex;
+  height: var(--height-medium);
+
+  .tags {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid var(--colors-blue7);
+    border-right: none;
+    padding:3px;
+    .tag {
+      height: 100%;
+      padding:0px 7px;
+      font-size: 14px;
+      background: #eee;
+      border-radius: 4px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap:4px;
+
+      .tag-delete-button {
+        width: fit-content;
+        height: fit-content;
+        border: none;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100%;
+        padding:2px;
+        cursor: pointer;
+        &:hover {
+          background:#c8c8c8;
+        }
+      }
+    }
+  }
+}
+
 .sc-input {
   width: 100%;
   background-color: white;
   border: 1px solid var(--colors-blue7);
-  border-bottom: none;
   border-right: none;
   outline: none;
   font-size: 13px;
   padding: 0 var(--spacing-2);
   height: var(--height-medium);
+
+  &.div {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
 }
 
 .clear-button-wrapper {
@@ -40,13 +88,13 @@
 }
 
 
-.select-all-button {
+.select-all-button,
+.dropdown-toggle-button {
   height: var(--height-medium);
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--colors-blue7);
-  border-bottom: none;
   border-left: none;
   font-size: 13px;
   font-weight: 400;
@@ -71,7 +119,6 @@
   align-items: center;
   justify-content: center;
   border: 1px solid var(--colors-blue7);
-  border-bottom: none;
   border-left: none;
   font-size: 13px;
   font-weight: 400;
@@ -140,16 +187,20 @@
     justify-content: center;
     color: var(--colors-blue9);
     line-height: 0;
-    > svg {
+
+    >svg {
       display: none;
     }
   }
+
   &[aria-selected="true"] {
     background-color: var(--colors-blue4);
+
     .sc-check-circle {
       background-color: var(--colors-blue3);
       border: 1px solid var(--colors-blue8);
-      > svg {
+
+      >svg {
         display: block;
       }
     }
@@ -169,5 +220,22 @@
   outline: none;
   overflow: auto;
   border: 1px solid var(--colors-blue7);
+  border-top: none;
   width: 100%;
+}
+
+
+.dropdown-toggle-button {
+  height: var(--height-medium);
+  width: var(--height-medium);
+
+  &.opened {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.d-hidden {
+  display: none;
 }

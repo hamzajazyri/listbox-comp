@@ -1,3 +1,7 @@
 <div class="listbox-container">
-  <listbox [items]="items" (onValuesChange)="onValueUpdate($event)"></listbox>
+  <listbox  [items]="items"
+            [multiple]="false"
+            [maxTagCount]="3"
+            (onValuesChange)="onValueUpdate($event)"
+  ></listbox>
 </div>
