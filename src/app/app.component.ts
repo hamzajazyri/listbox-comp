@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,14 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'filterable-listbox';
 
+  libSelectControl = new FormControl('value 3');
 
-  readonly items = Array.from({length: 100000}, (_, i) => `item #${i}`);
-
-
-  onValueUpdate(val:any){
-    console.log(val);
-  }
-
+  items = ['item1', 'item2'];
 }

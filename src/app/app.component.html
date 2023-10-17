@@ -1,9 +1,22 @@
-<div class="listbox-container">
-  <listbox  [items]="items"
-            [multiple]="false"
-            [maxTagCount]="3"
-            tooltip="tooltip info message"
-            tooltipPosition="above"
-            (onValuesChange)="onValueUpdate($event)"
-  ></listbox>
+<div class="control-grid">
+  <lib-select [formControl]="libSelectControl" placeholder="placeholder" [nullable]="true">
+    <lib-select-item [select-label]="'label'" [select-value]="'value'"></lib-select-item>
+    <lib-select-item [select-label]="'label 2'" [select-value]="'value 2'"></lib-select-item>
+    <lib-select-item [select-label]="'label 3'" [select-value]="'value 3'"></lib-select-item>
+    <lib-select-item [select-label]="'label 4'" [select-value]="'value 4'"></lib-select-item>
+    <lib-select-item [select-label]="'label 5'" [select-value]="'value 5'"></lib-select-item>
+  </lib-select>
+
+  <div>
+    <h4>Select Control Result:</h4>
+    <div style="margin:10px;">
+      <label>libSelectControl Value:</label>
+      <div>{{libSelectControl.value}}</div>
+    </div>
+    <div style="margin:10px;">
+      <label>libSelectControl errors:</label>
+      <div>{{libSelectControl.errors | json}}</div>
+    </div>
+  </div>
+
 </div>

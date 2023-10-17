@@ -1,3 +1,5 @@
-.listbox-container {
-  margin:50px;
+.control-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin:20px;
 }
