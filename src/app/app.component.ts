@@ -9,6 +9,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class AppComponent {
 
   libSelectControl = new FormControl('value 3');
+  libSelectMultiControl = new FormControl([]);
 
   items = ['item1', 'item2'];
 }

@@ -163,3 +163,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 
 }
+
+
+
+.tooltip {
+  position: absolute;
+  bottom:calc(100% + 5px);
+  left:50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  white-space: nowrap;
+  padding:10px;
+  background:#eee;
+  color:#333;
+  font-size: 17px;
+  border:1px solid #333;
+  border-radius: 10px;
+}

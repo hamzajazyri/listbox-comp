@@ -6,7 +6,6 @@
     <lib-select-item [select-label]="'label 4'" [select-value]="'value 4'"></lib-select-item>
     <lib-select-item [select-label]="'label 5'" [select-value]="'value 5'"></lib-select-item>
   </lib-select>
-
   <div>
     <h4>Select Control Result:</h4>
     <div style="margin:10px;">
@@ -18,5 +17,61 @@
       <div>{{libSelectControl.errors | json}}</div>
     </div>
   </div>
+</div>
 
+<hr/>
+
+<div class="control-grid">
+  <lib-multi-select [formControl]="libSelectMultiControl" placeholder="placeholder">
+    <lib-select-item [select-label]="'label'" [select-value]="'value'"></lib-select-item>
+    <lib-select-item [select-label]="'label 2'" [select-value]="'value 2'"></lib-select-item>
+    <lib-select-item [select-label]="'label 3'" [select-value]="'value 3'"></lib-select-item>
+    <lib-select-item [select-label]="'label 4'" [select-value]="'value 4'"></lib-select-item>
+    <lib-select-item [select-label]="'label 5'" [select-value]="'value 5'"></lib-select-item>
+  </lib-multi-select>
+  <div>
+    <h4>Select Multi Control Result:</h4>
+    <div style="margin:10px;">
+      <label>libSelectMultiControl Value:</label>
+      <div>{{libSelectMultiControl.value}}</div>
+    </div>
+    <div style="margin:10px;">
+      <label>libSelectMultiControl errors:</label>
+      <div>{{libSelectMultiControl.errors | json}}</div>
+    </div>
+  </div>
+</div>
+
+<hr/>
+
+<div class="control-grid">
+  <lib-dropdown name="Menu name">
+    <lib-dropdown-item name="menu item name1"></lib-dropdown-item>
+    <lib-dropdown-item name="menu item name2"></lib-dropdown-item>
+    <lib-dropdown-item name="menu item name3"></lib-dropdown-item>
+    <lib-dropdown-item name="menu item name4"></lib-dropdown-item>
+  </lib-dropdown>
+  <div>
+    <h4>DROPDOWN MENU</h4>
+  </div>
+</div>
+
+<hr/>
+
+<div class="control-grid">
+  <h1 style="background:red;padding:20px; margin:0px 50px;" libTooltip tooltipText="tooltip text">MOVE CURSOR HERE</h1>
+  <div>
+    <h4>TOOLTIP DIRECTIVE</h4>
+    <p>Display tooltip on hover</p>
+  </div>
+</div>
+
+<hr/>
+
+<div class="control-grid">
+  <h1 style="background:blue;padding:20px; margin:0px 50px;" libPopover popoverText="popover text">MOVE CURSOR HERE</h1>
+  <div>
+    <h4>TOOLTIP DIRECTIVE</h4>
+    <p>Display tooltip on hover</p>
+  </div>
 </div>

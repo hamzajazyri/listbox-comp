@@ -1,1 +1,48 @@
-<p>lib-multi-select works!</p>
+<div class="select-container">
+  <div class="select-header btn-placeholder" [ngClass]="{'opened': isOpen}" cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin" (click)="isOpen = !isOpen">
+    <div class="tags">
+      <div *ngFor="let item of selectedItems.slice(0, maxTagCount)">
+        <span>{{item.label}}</span>
+      </div>
+      <div *ngIf="selectedItems.length > maxTagCount">
+        <span>and {{selectedItems.length - maxTagCount}} selected items</span>
+      </div>
+    </div>
+    <input type="text" [placeholder]="placeholder" [formControl]="searchControl" />
+    <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z"
+          fill="#000000"></path>
+      </g>
+    </svg>
+  </div>
+
+  <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen">
+    <ul class="list">
+      <li *ngFor="let item of filtredItems" (click)="selectItem(item.label, item.value)"
+        [ngClass]="{'selected': isSelected(item.value)}">
+        <span>{{item.label}}</span>
+        <svg class="checked-icon" fill="#000000" height="22px" width="22px" version="1.1" id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.42 512.42"
+          xml:space="preserve">
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <g>
+              <g>
+                <path
+                  d="M509.313,67.45c-4.16-4.16-10.88-4.267-15.04-0.107L134.06,422.33l-115.2-121.6c-3.733-4.48-10.453-5.12-15.04-1.387 c-4.48,3.733-5.12,10.453-1.387,15.04c0.32,0.32,0.533,0.64,0.853,0.96l122.667,129.493c1.92,2.133,4.693,3.307,7.573,3.307h0.213 c2.773,0,5.44-1.067,7.467-3.093l368-362.667C513.473,78.33,513.473,71.61,509.313,67.45z">
+                </path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </li>
+    </ul>
+  </ng-template>
+
+</div>

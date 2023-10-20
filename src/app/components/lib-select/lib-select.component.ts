@@ -18,7 +18,7 @@ export class LibSelectItemComponent {
   get label() {
     if(this._label)
       return this._label;
-    return this.value;
+    return this._label;
   }
   get value(){
     return this._value;
@@ -38,17 +38,11 @@ export class LibSelectItemComponent {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => LibSelectComponent),
       multi: true,
-    },
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => LibSelectComponent),
-      multi: true,
-    },
+    }
   ],
 })
-export class LibSelectComponent implements ControlValueAccessor, AfterContentInit{
+export class LibSelectComponent implements ControlValueAccessor {
   @Input() placeholder = '';
-  @Input() items: Array<any> = [];
   @Input() nullable = false;
 
   // is dropdown opened or not
@@ -59,11 +53,6 @@ export class LibSelectComponent implements ControlValueAccessor, AfterContentIni
 
   @ContentChildren(LibSelectItemComponent) selectItems!: QueryList<LibSelectItemComponent>;
 
-  ngAfterContentInit(): void {
-    for(const selectItem of this.selectItems) {
-      console.log(selectItem.label);
-    }
-  }
 
   private onChange: (value: any) => void = () => {};
   private onTouched: () => void = () => {};
@@ -94,14 +83,6 @@ export class LibSelectComponent implements ControlValueAccessor, AfterContentIni
     this.isOpen = false;
     this.onChange(value);
     this.onTouched();
-  }
-
-  validate(c: AbstractControl): ValidationErrors | null {
-    console.log(c.validator)
-    if (this.selectedItem === undefined || this.selectedItem === null) {
-      return { required: true };
-    }
-    return null;
   }
 
 }

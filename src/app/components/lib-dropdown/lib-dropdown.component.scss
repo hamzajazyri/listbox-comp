@@ -1,0 +1,26 @@
+.dropdown-container {
+  position: relative;
+  button {
+    width: 170px;
+    height: 40px;
+    border:none;
+    background:#ccc;
+  }
+}
+
+.dropdown-list {
+  background:#eee;
+  width: 170px;
+
+}
+
+.dropdown-list-item {
+  height: 40px;
+  padding:0px 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background:#fff;
+  }
+}
