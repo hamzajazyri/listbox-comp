@@ -1,4 +1,4 @@
-<div class="select-container">
+<div class="select-container" appClickOutside (clickOutside)="isOpen = false">
 
   <button class="btn-placeholder" [ngClass]="{'opened': isOpen}" (click)="isOpen = !isOpen" type="button" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
     <span>{{selectedItem ? selectedItem : placeholder}}</span>

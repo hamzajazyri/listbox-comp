@@ -69,9 +69,9 @@
 <hr/>
 
 <div class="control-grid">
-  <h1 style="background:blue;padding:20px; margin:0px 50px;" libPopover popoverText="popover text">MOVE CURSOR HERE</h1>
+  <h1 style="background:blue;padding:20px; margin:0px 50px;" libPopover [popoverHtml]="popoverHtmlExample" [eventType]="'click'">MOVE CURSOR HERE</h1>
   <div>
-    <h4>TOOLTIP DIRECTIVE</h4>
-    <p>Display tooltip on hover</p>
+    <h4>POPOVER DIRECTIVE</h4>
+    <p>Display POPOVER by eventType: click|hover</p>
   </div>
 </div>

@@ -1,7 +1,8 @@
-import { AfterContentInit, Component, ContentChildren, Input, QueryList, forwardRef } from '@angular/core';
+import { Component, ContentChildren, Input, QueryList, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { ClickOutsideDirective } from 'src/app/components/click-outside.directive';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class LibSelectItemComponent {
 @Component({
   selector: 'lib-select',
   standalone: true,
-  imports: [CommonModule, OverlayModule],
+  imports: [CommonModule, OverlayModule, ClickOutsideDirective],
   templateUrl: './lib-select.component.html',
   styleUrls: ['./lib-select.component.scss'],
   providers: [

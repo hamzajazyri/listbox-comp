@@ -1,50 +1,52 @@
-import { Component, Input } from '@angular/core';
+import { Component, ContentChildren, Input, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ConnectionPositionPair, OverlayModule } from '@angular/cdk/overlay';
-
-@Component({
-  selector: 'lib-dropdown',
-  standalone: true,
-  imports: [CommonModule, OverlayModule],
-  template: `
-    <div class="dropdown-container">
-      <button cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="isOpen = !isOpen">{{name}}</button>
-      <ng-template cdkConnectedOverlay
-      [cdkConnectedOverlayOrigin]="trigger"
-      [cdkConnectedOverlayOpen]="isOpen"
-      [cdkConnectedOverlayPosition]="positionStrategy">
-        <div class="dropdown-list">
-          <ng-content select="lib-dropdown-item"></ng-content>
-        </div>
-      </ng-template>
-    </div>
-  `,
-  styleUrls: ['./lib-dropdown.component.scss']
-})
-export class LibDropdownComponent {
-  @Input() name = '';
-  @Input() isOpen = false;
-
-
-  positionStrategy = new ConnectionPositionPair(
-    { originX: 'end', originY: 'top' },
-    { overlayX: 'end', overlayY: 'bottom' }
-  );
-}
-
+import {
+  CdkMenuItemRadio,
+  CdkMenuItemCheckbox,
+  CdkMenuGroup,
+  CdkMenu,
+  CdkMenuTrigger,
+  CdkMenuItem,
+  CdkMenuBar,
+} from '@angular/cdk/menu';
 
 @Component({
   selector: 'lib-dropdown-item',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="dropdown-list-item">
-      {{name}}
-    </div>
-  `,
-  styleUrls: ['./lib-dropdown.component.scss']
+  template: ``,
+  styleUrls: ['./lib-dropdown.component.scss'],
 })
 export class LibDropdownMenuItemComponent {
   @Input() name = '';
   @Input('disabled') isDisabled = false;
+}
+
+@Component({
+  selector: 'lib-dropdown',
+  standalone: true,
+  imports: [CommonModule, CdkMenuBar, CdkMenuItem, CdkMenuTrigger],
+  template: `
+    <div class="dropdown-container">
+      <button  [cdkMenuTriggerFor]="menu">{{ name }}</button>
+      <ng-template #menu>
+        <div cdkMenu>
+          <button
+            *ngFor="let item of dropdownItems"
+            class="dropdown-list-item"
+            cdkMenuItem>
+            {{ item.name }}
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  `,
+  styleUrls: ['./lib-dropdown.component.scss'],
+})
+export class LibDropdownComponent {
+  @Input() name = '';
+  @Input() isOpen = false;
+
+  @ContentChildren(LibDropdownMenuItemComponent)
+  dropdownItems!: QueryList<LibDropdownMenuItemComponent>;
 }

@@ -12,4 +12,10 @@ export class AppComponent {
   libSelectMultiControl = new FormControl([]);
 
   items = ['item1', 'item2'];
+
+
+  popoverHtmlExample = `
+    <h3>popover html<h3>
+    <p style='font-size:13px;'>lroelmqs fmqsdf qsdfmlkqsdlf sqdfkl qsjflqs kdj</p>
+  `;
 }

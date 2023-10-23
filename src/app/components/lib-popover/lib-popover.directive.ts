@@ -6,7 +6,8 @@ import { Directive, Input, ElementRef, Renderer2, HostListener, OnInit, AfterVie
 })
 export class LibPopoverDirective implements OnInit, AfterViewInit {
 
-  @Input() popoverText!: string;
+  @Input() popoverHtml!: string;
+  @Input() eventType: 'click' | 'hover' = 'hover';
   private tooltipElement!: HTMLElement;
 
   constructor(private el: ElementRef, private renderer: Renderer2) {
@@ -24,19 +25,29 @@ ngAfterViewInit(): void {
   createTooltip() {
     this.tooltipElement = this.renderer.createElement('div');
     this.renderer.addClass(this.tooltipElement, 'tooltip');
-    this.renderer.appendChild(this.tooltipElement, this.renderer.createText(this.popoverText));
+    this.renderer.appendChild(this.tooltipElement, this.renderer.createText(''));
+    this.tooltipElement.innerHTML = this.popoverHtml;
     this.renderer.appendChild(this.el.nativeElement, this.tooltipElement);
     this.renderer.setStyle(this.tooltipElement, 'display', 'none');
   }
 
   @HostListener('mouseenter')
   onMouseEnter() {
-    this.renderer.setStyle(this.tooltipElement, 'display', 'block');
+    if(this.eventType === 'hover')
+      this.renderer.setStyle(this.tooltipElement, 'display', 'block');
   }
 
   @HostListener('mouseleave')
   onMouseLeave() {
-    this.renderer.setStyle(this.tooltipElement, 'display', 'none');
+    if(this.eventType === 'hover')
+      this.renderer.setStyle(this.tooltipElement, 'display', 'none');
   }
 
+
+  @HostListener('click')
+  onMouseClick() {
+    if(this.eventType === 'hover')
+      return;
+    this.renderer.setStyle(this.tooltipElement, 'display', this.tooltipElement.style.display === 'none' ? 'block': 'none');
+  }
 }

@@ -49,6 +49,10 @@
   cursor: pointer;
   font-size: 15px;
 
+  svg {
+    min-width: 22px;
+    min-height: 22px;
+  }
   &.opened {
     svg {
       transform: rotate(180deg);
@@ -72,4 +76,8 @@
     border:none;
     padding:0px 5px;
   }
+}
+
+.select-container {
+  width: fit-content;
 }

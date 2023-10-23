@@ -1,14 +1,15 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, forwardRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, QueryList, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LibSelectItemComponent } from '../lib-select/lib-select.component';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { Observable, map, of, startWith, switchMap, tap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
+import { ClickOutsideDirective } from 'src/app/components/click-outside.directive';
 
 @Component({
   selector: 'lib-multi-select',
   standalone: true,
-  imports: [CommonModule, OverlayModule, ReactiveFormsModule],
+  imports: [CommonModule, OverlayModule, ReactiveFormsModule, ClickOutsideDirective],
   templateUrl: './lib-multi-select.component.html',
   styleUrls: ['./lib-multi-select.component.scss'],
   providers: [
@@ -79,7 +80,9 @@ export class LibMultiSelectComponent implements ControlValueAccessor, AfterConte
     // Implement this if you want to support disabling the input
   }
 
-  selectItem(label: any, value:any): void {
+  selectItem(label: any, value:any, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
     if(this.isSelected(value))
       this.selectedItems = this.selectedItems.filter( x => x.value != value);
     else
