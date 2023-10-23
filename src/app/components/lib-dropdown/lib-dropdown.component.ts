@@ -25,7 +25,7 @@ export class LibDropdownMenuItemComponent {
 @Component({
   selector: 'lib-dropdown',
   standalone: true,
-  imports: [CommonModule, CdkMenuBar, CdkMenuItem, CdkMenuTrigger],
+  imports: [CommonModule, CdkMenu, CdkMenuItem, CdkMenuTrigger],
   template: `
     <div class="dropdown-container">
       <button  [cdkMenuTriggerFor]="menu">{{ name }}</button>

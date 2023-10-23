@@ -1,5 +1,5 @@
 <div class="select-container" appClickOutside (clickOutside)="isOpen = false">
-  <div class="select-header btn-placeholder" [ngClass]="{'opened': isOpen}" cdkOverlayOrigin
+  <div class="select-header btn-placeholder" [cdkMenuTriggerFor]="menu" [ngClass]="{'opened': isOpen}" cdkOverlayOrigin
     #trigger="cdkOverlayOrigin">
     <div class="tags">
       <div *ngFor="let item of selectedItems.slice(0, maxTagCount)">
@@ -21,10 +21,10 @@
     </svg>
   </div>
 
-  <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen" >
-    <ul class="list">
+  <ng-template #menu cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen" >
+    <ul class="list" cdkMenu >
       <li *ngFor="let item of filtredItems" (click)="selectItem(item.label, item.value, $event)"
-        [ngClass]="{'selected': isSelected(item.value)}">
+        [ngClass]="{'selected': isSelected(item.value)}" cdkMenuItem>
         <span>{{item.label}}</span>
         <svg class="checked-icon" fill="#000000" height="22px" width="22px" version="1.1" id="Layer_1"
           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.42 512.42"

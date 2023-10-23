@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { ClickOutsideDirective } from 'src/app/components/click-outside.directive';
+import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class LibSelectItemComponent {
 @Component({
   selector: 'lib-select',
   standalone: true,
-  imports: [CommonModule, OverlayModule, ClickOutsideDirective],
+  imports: [CommonModule,  CdkMenu, CdkMenuTrigger, CdkMenuItem, ClickOutsideDirective],
   templateUrl: './lib-select.component.html',
   styleUrls: ['./lib-select.component.scss'],
   providers: [

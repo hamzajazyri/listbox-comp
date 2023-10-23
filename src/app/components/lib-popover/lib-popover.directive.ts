@@ -18,7 +18,6 @@ export class LibPopoverDirective implements OnInit, AfterViewInit {
 }
 
 ngAfterViewInit(): void {
-  console.log(this.el);
     this.renderer.setStyle(this.el.nativeElement, 'position', 'relative');
   }
 

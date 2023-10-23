@@ -5,11 +5,12 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModu
 import { OverlayModule } from '@angular/cdk/overlay';
 import { map, switchMap } from 'rxjs';
 import { ClickOutsideDirective } from 'src/app/components/click-outside.directive';
+import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 
 @Component({
   selector: 'lib-multi-select',
   standalone: true,
-  imports: [CommonModule, OverlayModule, ReactiveFormsModule, ClickOutsideDirective],
+  imports: [CommonModule, OverlayModule, ReactiveFormsModule, ClickOutsideDirective, CdkMenu, CdkMenuItem, CdkMenuTrigger],
   templateUrl: './lib-multi-select.component.html',
   styleUrls: ['./lib-multi-select.component.scss'],
   providers: [
