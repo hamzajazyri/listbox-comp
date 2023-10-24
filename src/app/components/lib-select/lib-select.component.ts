@@ -1,9 +1,10 @@
-import { Component, ContentChildren, Input, QueryList, forwardRef } from '@angular/core';
+import { Component, ContentChildren, ElementRef, Input, QueryList, ViewChild, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { ClickOutsideDirective } from 'src/app/components/click-outside.directive';
-import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
+import {CdkListbox, CdkOption} from '@angular/cdk/listbox';
+import { CdkMenuTrigger } from '@angular/cdk/menu';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class LibSelectItemComponent {
 @Component({
   selector: 'lib-select',
   standalone: true,
-  imports: [CommonModule,  CdkMenu, CdkMenuTrigger, CdkMenuItem, ClickOutsideDirective],
+  imports: [CommonModule, ClickOutsideDirective, OverlayModule, CdkListbox, CdkOption, CdkOverlayOrigin],
   templateUrl: './lib-select.component.html',
   styleUrls: ['./lib-select.component.scss'],
   providers: [
@@ -55,12 +56,13 @@ export class LibSelectComponent implements ControlValueAccessor {
 
   @ContentChildren(LibSelectItemComponent) selectItems!: QueryList<LibSelectItemComponent>;
 
+  @ViewChild(CdkListbox) menuList!: CdkListbox;
 
   private onChange: (value: any) => void = () => {};
   private onTouched: () => void = () => {};
 
   clearItem() {
-    this.selectItem(null,null);
+    this.selectItem(null);
   }
 
   writeValue(value: any): void {
@@ -79,14 +81,22 @@ export class LibSelectComponent implements ControlValueAccessor {
     // Implement this if you want to support disabling the input
   }
 
-  selectItem(label: any, value:any): void {
+  selectItem(value:any): void {
+    const label = this.selectItems.find(item => item.value == value)?.label;
     this.selectedItem = value;
-    this.selectedItemLabel = label;
+    this.selectedItemLabel = label!;
     this.isOpen = false;
     this.onChange(value);
     this.onTouched();
   }
 
+  toggleView() {
+    this.isOpen = !this.isOpen;
+    if(this.isOpen)
+      setTimeout(() => {
+        this.menuList.focus();
+      });
+  }
 }
 
 

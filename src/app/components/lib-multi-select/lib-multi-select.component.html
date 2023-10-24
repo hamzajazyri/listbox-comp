@@ -1,15 +1,15 @@
 <div class="select-container" appClickOutside (clickOutside)="isOpen = false">
-  <div class="select-header btn-placeholder" [cdkMenuTriggerFor]="menu" [ngClass]="{'opened': isOpen}" cdkOverlayOrigin
+  <div class="select-header btn-placeholder" [ngClass]="{'opened': isOpen}" cdkOverlayOrigin
     #trigger="cdkOverlayOrigin">
     <div class="tags">
       <div *ngFor="let item of selectedItems.slice(0, maxTagCount)">
-        <span>{{item.label}}</span>
+        <span>{{getLabel(item)}}</span>
       </div>
-      <div *ngIf="selectedItems.length > maxTagCount">
+      <div *ngIf="selectedItems.length && selectedItems.length > maxTagCount">
         <span>and {{selectedItems.length - maxTagCount}} selected items</span>
       </div>
     </div>
-    <input type="text" [placeholder]="placeholder" [formControl]="searchControl" (focus)="isOpen = true"/>
+    <input type="text" [placeholder]="placeholder" [formControl]="searchControl" (focus)="isOpen = true" />
     <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -21,8 +21,17 @@
     </svg>
   </div>
 
-  <ng-template #menu cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen" >
-    <ul class="list" cdkMenu >
+
+  <ng-template #menu cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen">
+    <ul cdkListbox cdkListboxMultiple [formControl]="listBoxControl" (cdkListboxValueChange)="onOptionChange($event)" *ngIf="isOpen"
+      aria-labelledby="example-appointment-label" [autofocus]="true" class="list">
+      <li *ngFor="let item of selectItems" [cdkOption]="item.value" (click)="handle_clickEvent($event)"
+        [ngClass]="{'selected': isSelected(item.value)}" class="example-option">
+        {{item.label}}
+      </li>
+    </ul>
+
+    <!-- <ul class="list" cdkMenu>
       <li *ngFor="let item of filtredItems" (click)="selectItem(item.label, item.value, $event)"
         [ngClass]="{'selected': isSelected(item.value)}" cdkMenuItem>
         <span>{{item.label}}</span>
@@ -42,7 +51,7 @@
           </g>
         </svg>
       </li>
-    </ul>
+    </ul> -->
   </ng-template>
 
 </div>
