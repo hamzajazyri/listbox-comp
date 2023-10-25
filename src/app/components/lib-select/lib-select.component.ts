@@ -4,7 +4,6 @@ import { CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { ClickOutsideDirective } from 'src/app/components/click-outside.directive';
 import {CdkListbox, CdkOption} from '@angular/cdk/listbox';
-import { CdkMenuTrigger } from '@angular/cdk/menu';
 
 
 @Component({
@@ -15,6 +14,7 @@ import { CdkMenuTrigger } from '@angular/cdk/menu';
   styles: [],
 })
 export class LibSelectItemComponent {
+
   @Input('select-label') _label: string | null = null;
   @Input('select-value') _value!: string | number;
 
@@ -75,10 +75,6 @@ export class LibSelectComponent implements ControlValueAccessor {
 
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    // Implement this if you want to support disabling the input
   }
 
   selectItem(value:any): void {

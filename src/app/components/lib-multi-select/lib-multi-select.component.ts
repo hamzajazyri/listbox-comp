@@ -1,30 +1,11 @@
-import {
-  AfterContentInit,
-  Component,
-  ContentChildren,
-  Input,
-  QueryList,
-  ViewChild,
-  forwardRef,
-} from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, QueryList, ViewChild, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LibSelectItemComponent } from '../lib-select/lib-select.component';
-import {
-  ControlValueAccessor,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 import { map, switchMap } from 'rxjs';
 import { ClickOutsideDirective } from 'src/app/components/click-outside.directive';
-import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
-import {
-  CdkListbox,
-  CdkOption,
-  ListboxValueChangeEvent,
-} from '@angular/cdk/listbox';
-import { SelectionModel } from '@angular/cdk/collections';
+import { CdkListbox, CdkOption, ListboxValueChangeEvent } from '@angular/cdk/listbox';
 
 @Component({
   selector: 'lib-multi-select',
@@ -83,7 +64,6 @@ export class LibMultiSelectComponent
 
   onOptionChange(option: ListboxValueChangeEvent<any>) {
     this.selectItem(option.value);
-    return false;
   }
 
   private filter(searchText: string | null) {
@@ -120,10 +100,6 @@ export class LibMultiSelectComponent
 
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    // Implement this if you want to support disabling the input
   }
 
   selectItem(value: any): void {

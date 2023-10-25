@@ -1,14 +1,6 @@
 import { Component, ContentChildren, Input, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  CdkMenuItemRadio,
-  CdkMenuItemCheckbox,
-  CdkMenuGroup,
-  CdkMenu,
-  CdkMenuTrigger,
-  CdkMenuItem,
-  CdkMenuBar,
-} from '@angular/cdk/menu';
+import {CdkMenu, CdkMenuTrigger, CdkMenuItem } from '@angular/cdk/menu';
 
 @Component({
   selector: 'lib-dropdown-item',
