@@ -19,7 +19,7 @@
     <ul cdkListbox cdkListboxMultiple [formControl]="listBoxControl" (cdkListboxValueChange)="onOptionChange($event)"
       *ngIf="isOpen" aria-labelledby="example-appointment-label" [autofocus]="true" class="list">
       <li *ngFor="let item of selectItems" [cdkOption]="item.value" (click)="handle_clickEvent($event)"
-        [ngClass]="{'selected': isSelected(item.value)}" class="example-option">
+        [ngClass]="{'selected': isSelected(item.value), 'v-none': !isMatch(item.label!)}" >
         {{item.label}}
       </li>
     </ul>

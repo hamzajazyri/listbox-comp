@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { LibSelectItemComponent } from '../lib-select/lib-select.component';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
-import { map, switchMap } from 'rxjs';
 import { ClickOutsideDirective } from 'src/app/components/click-outside.directive';
 import { CdkListbox, CdkOption, ListboxValueChangeEvent } from '@angular/cdk/listbox';
 
@@ -50,33 +49,14 @@ export class LibMultiSelectComponent
   listBoxControl = new FormControl([]);
 
   ngAfterContentInit(): void {
-    this.filtredItems = this.selectItems.map((x) => ({
-      label: x.label,
-      value: x.value,
-    }));
-    this.searchControl.valueChanges
-      .pipe(
-        map((search) => search as string),
-        switchMap((search) => this.filter(search))
-      )
-      .subscribe((res) => (this.filtredItems = res));
   }
 
   onOptionChange(option: ListboxValueChangeEvent<any>) {
     this.selectItem(option.value);
   }
 
-  private filter(searchText: string | null) {
-    const search = searchText ? searchText : '';
-    return [
-      this.selectItems
-        .filter((x) => this._isMatch(x.label!, search))
-        .map((x) => ({ label: x.label, value: x.value })),
-    ];
-  }
-
-  private _isMatch(w: string, w2: string) {
-    return w.toString().toLowerCase().includes(w2.toLowerCase());
+  public isMatch(w: string) {
+    return w.toString().toLowerCase().includes(this.searchControl.value!);
   }
 
   private onChange: (value: any) => void = () => {};

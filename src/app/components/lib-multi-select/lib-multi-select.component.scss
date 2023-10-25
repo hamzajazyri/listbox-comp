@@ -33,6 +33,9 @@
         display: block;
       }
     }
+    &.v-none {
+      display: none;
+    }
   }
 }
 
